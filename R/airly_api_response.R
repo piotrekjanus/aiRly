@@ -1,13 +1,17 @@
 #' Creates an object representing a response from the
-#' Hacker News API
+#' Airly API
 #'
 #' @param response response object
 #'
 #' @return object representing a response from the
-#' Hacker News API
+#' Airly API
 #'
 create_airly_api_response <- function(response) {
   parsed_content <- parse_json(response)
+  if(exists("headers", response)) {
+    assign("limit", as.numeric(response$headers$`x-ratelimit-limit-day`), envir = pkg.env)
+    assign("remaining", as.numeric(response$headers$`x-ratelimit-remaining-day`), envir = pkg.env)
+  }
   structure(
     list(
       content = parsed_content,

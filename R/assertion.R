@@ -32,3 +32,13 @@ assert_apikey <- function(key) {
   assert(is.character(key), "apikey must be a string")
 }
 
+#' Checks whether apikey is correctly set
+#'
+#' @param lat latitude as decimal degree
+#' @param lng longitude as decimal degree
+#
+assert_coordinates <- function(lat, lng) {
+  assert(is.numeric(lat) & is.numeric(lng), "Both, latitude and longitude have to be numeric")
+  assert(-90 <= lat & lat <= 90, "The valid range of latitude in degrees is -90 and +90")
+  assert(-180 <= lng & lng <= 180, "The valid range of longitude  in degrees is -180 and +180")
+}

@@ -5,7 +5,7 @@
 \title{Creates a request url based on the given base url and
 passed paths. The json extensions is added automatically.}
 \usage{
-create_request_url(url, paths)
+create_request_url(url, paths, add_json_ext = TRUE)
 }
 \arguments{
 \item{url}{base url of the request}

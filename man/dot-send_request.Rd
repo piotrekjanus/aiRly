@@ -4,7 +4,7 @@
 \alias{.send_request}
 \title{Sends a request to the specified url and retrieves it's content.}
 \usage{
-.send_request(request_url, apikey)
+.send_request(request_url, apikey, query = NULL)
 }
 \arguments{
 \item{request_url}{url to be used}
