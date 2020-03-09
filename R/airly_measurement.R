@@ -18,7 +18,6 @@ print.airly_measurement <- function(x, ...) {
 #' @return object representing a airly_measurement
 #'
 create_airly_measurement <- function(item) {
-  browser()
   airly_measurement <- structure(
     list(
       current = build_current_df(item),

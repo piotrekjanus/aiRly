@@ -224,6 +224,54 @@ get_installation_measurements <- function(id) {
   create_airly_measurement(item)
 }
 
+#' @title Get Airly avaiable indexes
+#'
+#' @description Endpoint returns a list of all the index types supported in the API along with lists of levels defined per each index type.
+#'
+#' @export
+#'
+#' @return object of airly_meta class
+#'
+#' @examples
+#' \donttest{
+#'  get_indexes()
+#' }
+#'
+get_indexes <- function() {
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("meta", "indexes"),
+                                    add_json_ext = FALSE)
+  item <- .send_request(request_url, api_key)
+  create_airly_meta(item)
+}
+
+
+#' @title Get measures used in Airly
+#'
+#' @description Endpoint returns list of all the measurement types supported in the API along with their names and units.
+#'
+#' @export
+#'
+#' @return data.frame with measure names and units
+#'
+#' @examples
+#' \donttest{
+#'  get_measurements_info()
+#' }
+#'
+get_measurements_info <- function() {
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("meta", "measurements"),
+                                    add_json_ext = FALSE)
+  item <- .send_request(request_url, api_key)
+  item
+}
 #' @title Get information about remaining API requests
 #'
 #' @description Default rate limit per apikey is 100 API requests per day for all users. In order to get information, user has to make at least one request.

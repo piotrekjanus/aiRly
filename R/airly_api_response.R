@@ -63,7 +63,6 @@ validate_airly_api_response <- function(airly_api_response) {
   }
 }
 
-
 #' @export
 print.airly_api_response <- function(x, ...) {
   cat(sprintf("---AIRLY API RESPONSE [%s][%s]---", x$path, x$response$status_code))

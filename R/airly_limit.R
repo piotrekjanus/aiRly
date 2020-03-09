@@ -51,6 +51,5 @@ is_airly_limit <- function(x) {
 
 validate_airly_limit <- function(airly_limit) {
   assert(!is.null(airly_limit$limit), "You have to make at least one call, before getting this information")
-  assert(!is.null(airly_limit$limit), "You have to make at least one call, before getting this information")
   assert(is_airly_limit(airly_limit), "Object must be of the class airly_limit")
 }
