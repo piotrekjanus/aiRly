@@ -3,7 +3,7 @@
 \name{create_airly_api_response}
 \alias{create_airly_api_response}
 \title{Creates an object representing a response from the
-Hacker News API}
+Airly API}
 \usage{
 create_airly_api_response(response)
 }
@@ -12,9 +12,9 @@ create_airly_api_response(response)
 }
 \value{
 object representing a response from the
-Hacker News API
+Airly API
 }
 \description{
 Creates an object representing a response from the
-Hacker News API
+Airly API
 }

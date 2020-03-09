@@ -2,16 +2,21 @@
 #' passed paths. The json extensions is added automatically.
 #'
 #' @param url base url of the request
-#'
 #' @param paths vector of paths that should be added to the url
+#' @param add_json_ext boolean indicating if include ".json" at the end of request
 #'
 #' @return request url with added paths and the json extension
 #'
-create_request_url <- function(url, paths) {
+create_request_url <- function(url, paths, add_json_ext=TRUE) {
   for (path in paths) {
     url <- add_path(url, path)
   }
-  add_json_extension(url)
+  if (add_json_ext) {
+    add_json_extension(url)
+  }
+  else {
+    url
+  }
 }
 #' Adds the given path to the given url
 #'

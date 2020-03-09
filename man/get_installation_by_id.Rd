@@ -10,7 +10,7 @@ get_installation_by_id(id)
 \item{id}{integer}
 }
 \value{
-airly_index item
+airly_location item
 }
 \description{
 Endpoint returns single installation metadata, given by id

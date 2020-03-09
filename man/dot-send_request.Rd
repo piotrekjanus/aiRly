@@ -4,12 +4,14 @@
 \alias{.send_request}
 \title{Sends a request to the specified url and retrieves it's content.}
 \usage{
-.send_request(request_url, apikey)
+.send_request(request_url, apikey, query = NULL)
 }
 \arguments{
 \item{request_url}{url to be used}
 
 \item{apikey}{airly apikey}
+
+\item{query}{Default value is NULL. Optional argument if you want to add query to request}
 }
 \value{
 parsed content of the response object

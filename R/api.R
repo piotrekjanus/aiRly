@@ -1,5 +1,7 @@
 pkg.env <- new.env()
 pkg.env$apikey <- NULL
+pkg.env$limit <- NULL
+pkg.env$remaining <- NULL
 
 #' Returns the base url of Airly API
 #'
@@ -12,13 +14,16 @@ pkg.env$apikey <- NULL
 #'
 #' @param request_url url to be used
 #' @param apikey airly apikey
+#' @param query Default value is NULL. Optional argument if you want to add query to request
 #'
 #' @return parsed content of the response object
 #'
-.send_request <- function(request_url, apikey) {
+.send_request <- function(request_url, apikey, query = NULL) {
   response <- httr::GET(url = request_url,
                         httr::add_headers(Accept = "application/json",
-                                          apikey = apikey))
+                                          apikey = apikey),
+                        query = query)
+
   airly_response <- create_airly_api_response(response)
   validate_airly_api_response(airly_response)
 
@@ -70,7 +75,7 @@ set_apikey <- function(key) {
 #'
 #' @export
 #'
-#' @return airly_index item
+#' @return airly_location item
 #'
 #' @examples
 #' \donttest{
@@ -84,5 +89,204 @@ get_installation_by_id <- function(id) {
 
   request_url <- create_request_url(.base_url(), c("installations", id))
   item <- .send_request(request_url, api_key)
-  create_airly_index(item)
+  create_airly_location(item)
+}
+
+
+#' @title Get Airly nearest installations to given point
+#'
+#' @description Endpoint returns list of installations which are closest to a given point, sorted by distance to that point.
+#'
+#' @param lat latitude as decimal degree
+#' @param lng longitude as decimal degree
+#' @param max_distance default value 3.0. All the returned installations must be located within this limit from the given point (in km). Negative value means no limit
+#' @param max_results default value 1. Maximum number of installations to return. Negative value means no limit
+#' @export
+#'
+#' @return data.frame of airly_location items
+#'
+#' @examples
+#' \donttest{
+#' get_nearest_instalattions(50.11670, 19.91429, max_distance = 20)
+#' }
+#'
+get_nearest_instalattions <- function(lat, lng, max_distance=NULL, max_results=NULL) {
+  assert_coordinates(lat, lng)
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+
+  query <- list(
+    lat = lat,
+    lng = lng
+  )
+  if (!is.null(max_distance)) query[["maxDistanceKM"]] = max_distance
+  if (!is.null(max_results)) query[["maxResults"]] = max_results
+
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("installations", "nearest"),
+                                    add_json_ext = FALSE)
+  items <- .send_request(request_url, api_key, query)
+  create_airly_location(items)
+}
+
+#' @title Get Airly nearest measurements to given point
+#'
+#' @description Endpoint returns measurements for an installation closest to a given location
+#'
+#' @param lat latitude as decimal degree
+#' @param lng longitude as decimal degree
+#' @param max_distance default value 3.0. All the returned installations must be located within this limit from the given point (in km). Negative value means no limit
+#' @export
+#'
+#' @return data.frame of airly_measurements items
+#'
+#' @examples
+#' \donttest{
+#' get_nearest_measurements(50.11670, 19.91429, max_distance = 10)
+#' }
+#'
+get_nearest_measurements <- function(lat, lng, max_distance=NULL) {
+  assert_coordinates(lat, lng)
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+  query <- list(
+    lat = lat,
+    lng = lng
+  )
+  if (!is.null(max_distance)) query[["maxDistanceKM"]] = max_distance
+
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("measurements", "nearest"),
+                                    add_json_ext = FALSE)
+  items <- .send_request(request_url, api_key, query)
+  create_airly_measurement(items)
+}
+
+#' @title Get Airly measurements for any geographical location
+#'
+#' @description Endpoint returns measurements for any geographical location
+#'
+#' @param lat latitude as decimal degree
+#' @param lng longitude as decimal degree
+#'
+#' @export
+#'
+#' @return object of airly_measurements class
+#'
+#' @examples
+#' \donttest{
+#' get_point_measurements(50.11670, 19.91429)
+#' }
+#'
+get_point_measurements <- function(lat, lng) {
+  assert_coordinates(lat, lng)
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+  query <- list(
+    lat = lat,
+    lng = lng
+  )
+
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("measurements", "point"),
+                                    add_json_ext = FALSE)
+  item <- .send_request(request_url, api_key, query)
+  create_airly_measurement(item)
+}
+
+
+#' @title Get Airly measurements for any geographical locationgiven installation id
+#'
+#' @description Endpoint returns measurements for concrete installation given by installation Id
+#'
+#' @param id integer, installation identifier
+#'
+#' @export
+#'
+#' @return object of airly_measurements class
+#'
+#' @examples
+#' \donttest{
+#'  get_installation_measurements(8077)
+#' }
+#'
+get_installation_measurements <- function(id) {
+  assert_ids(id)
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+  query <- list(
+    installationId = id
+  )
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("measurements", "installation"),
+                                    add_json_ext = FALSE)
+  item <- .send_request(request_url, api_key, query)
+  create_airly_measurement(item)
+}
+
+#' @title Get Airly avaiable indexes
+#'
+#' @description Endpoint returns a list of all the index types supported in the API along with lists of levels defined per each index type.
+#'
+#' @export
+#'
+#' @return object of airly_meta class
+#'
+#' @examples
+#' \donttest{
+#'  get_indexes()
+#' }
+#'
+get_indexes <- function() {
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("meta", "indexes"),
+                                    add_json_ext = FALSE)
+  item <- .send_request(request_url, api_key)
+  create_airly_meta(item)
+}
+
+
+#' @title Get measures used in Airly
+#'
+#' @description Endpoint returns list of all the measurement types supported in the API along with their names and units.
+#'
+#' @export
+#'
+#' @return data.frame with measure names and units
+#'
+#' @examples
+#' \donttest{
+#'  get_measurements_info()
+#' }
+#'
+get_measurements_info <- function() {
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+
+  request_url <- create_request_url(.base_url(),
+                                    paths=c("meta", "measurements"),
+                                    add_json_ext = FALSE)
+  item <- .send_request(request_url, api_key)
+  item
+}
+#' @title Get information about remaining API requests
+#'
+#' @description Default rate limit per apikey is 100 API requests per day for all users. In order to get information, user has to make at least one request.
+#'
+#' @export
+#'
+#' @return list containing information about remaining requests and daily limit
+#'
+#' @examples
+#' \donttest{
+#' remaining_requests()
+#' }
+#'
+remaining_requests <- function() {
+  api_key <- .get_apikey()
+  assert_apikey(api_key)
+  create_airly_limit()
 }
