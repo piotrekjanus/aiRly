@@ -10,6 +10,8 @@
 \item{request_url}{url to be used}
 
 \item{apikey}{airly apikey}
+
+\item{query}{Default value is NULL. Optional argument if you want to add query to request}
 }
 \value{
 parsed content of the response object

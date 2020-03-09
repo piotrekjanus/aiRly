@@ -14,6 +14,7 @@ pkg.env$remaining <- NULL
 #'
 #' @param request_url url to be used
 #' @param apikey airly apikey
+#' @param query Default value is NULL. Optional argument if you want to add query to request
 #'
 #' @return parsed content of the response object
 #'

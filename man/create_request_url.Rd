@@ -11,6 +11,8 @@ create_request_url(url, paths, add_json_ext = TRUE)
 \item{url}{base url of the request}
 
 \item{paths}{vector of paths that should be added to the url}
+
+\item{add_json_ext}{boolean indicating if include ".json" at the end of request}
 }
 \value{
 request url with added paths and the json extension

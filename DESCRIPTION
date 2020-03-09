@@ -18,7 +18,8 @@ RoxygenNote: 6.1.1
 Imports: 
     utils,
     httr,
-    jsonlite
+    jsonlite,
+    reshape2
 URL: https://github.com/piotrekjanus/aiRly
 BugReports: https://github.com/piotrekjanus/aiRly/issues
 Language: en-US
