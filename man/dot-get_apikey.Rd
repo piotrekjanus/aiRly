@@ -6,11 +6,9 @@
 \usage{
 .get_apikey()
 }
+\value{
+apikey value of set api key
+}
 \description{
 Get apikey that was set by user
-}
-\examples{
-\donttest{
-}
-
 }

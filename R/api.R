@@ -11,6 +11,7 @@ pkg.env$apikey <- NULL
 #' Sends a request to the specified url and retrieves it's content.
 #'
 #' @param request_url url to be used
+#' @param apikey airly apikey
 #'
 #' @return parsed content of the response object
 #'
@@ -28,9 +29,9 @@ pkg.env$apikey <- NULL
 #' @title Set Airly apikey
 #'
 #' @description On a free plan, API consumer is required to use our API only in non-commercial projects.
-#' More details are available in under \link(https://airly.eu/docs/tos-en.pdf).
+#' More details are available in under \url{https://airly.eu/docs/tos-en.pdf}.
 #'
-#' @param key string. Get your api key \link(https://developer.airly.eu/)
+#' @param key string. Get your api key \url{https://developer.airly.eu/}
 #'
 #' @export
 #'
@@ -49,12 +50,7 @@ set_apikey <- function(key) {
 #'
 #' @description Get apikey that was set by user
 #'
-#' @return
-#'
-#' @examples
-#' \donttest{
-#' }
-#'
+#' @return apikey value of set api key
 .get_apikey <- function() {
   tryCatch(
     key <- get("apikey", envir = pkg.env),
@@ -69,8 +65,6 @@ set_apikey <- function(key) {
 #' @title Get Airly installation by id
 #'
 #' @description Endpoint returns single installation metadata, given by id
-#'
-#' @details
 #'
 #' @param id integer
 #'

@@ -25,7 +25,7 @@ assert_ids <- function(ids) {
 
 #' Checks whether apikey is correctly set
 #'
-#' @param ids maximum number of ids to retrieve
+#' @param key airly apikey
 #
 assert_apikey <- function(key) {
   assert(!is.null(key), "You have to set apikey first! See set_apikey function.")

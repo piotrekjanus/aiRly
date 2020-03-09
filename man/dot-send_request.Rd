@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{request_url}{url to be used}
+
+\item{apikey}{airly apikey}
 }
 \value{
 parsed content of the response object

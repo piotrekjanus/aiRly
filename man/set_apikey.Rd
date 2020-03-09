@@ -7,11 +7,11 @@
 set_apikey(key)
 }
 \arguments{
-\item{key}{string. Get your api key \link(https://developer.airly.eu/)}
+\item{key}{string. Get your api key \url{https://developer.airly.eu/}}
 }
 \description{
 On a free plan, API consumer is required to use our API only in non-commercial projects.
-More details are available in under \link(https://airly.eu/docs/tos-en.pdf).
+More details are available in under \url{https://airly.eu/docs/tos-en.pdf}.
 }
 \examples{
 \donttest{
