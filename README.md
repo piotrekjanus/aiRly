@@ -8,6 +8,7 @@
 
 aiRly is a R wrapper for [Airly](https://airly.eu/) 
 
+
 ## Installation
 
 `devtools::install_github("piotrekjanus/aiRly")`
