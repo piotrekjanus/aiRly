@@ -7,7 +7,7 @@
 assert_apikey(key)
 }
 \arguments{
-\item{ids}{maximum number of ids to retrieve}
+\item{key}{airly apikey}
 }
 \description{
 Checks whether apikey is correctly set
