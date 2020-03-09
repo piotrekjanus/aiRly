@@ -3,17 +3,17 @@
 \name{is_airly_api_response}
 \alias{is_airly_api_response}
 \title{Checks whether the given object is of the class
-hn_api_response.}
+airly_api_response}
 \usage{
 is_airly_api_response(x)
 }
 \arguments{
-\item{x}{object to test if it is of the class hn_api_response}
+\item{x}{object to test if it is of the class airly_api_response}
 }
 \value{
-TRUE if the object is of the class hn_api_response
+TRUE if the object is of the class airly_api_response
 }
 \description{
 Checks whether the given object is of the class
-hn_api_response.
+airly_api_response
 }

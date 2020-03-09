@@ -15,9 +15,6 @@ airly_index item
 \description{
 Endpoint returns single installation metadata, given by id
 }
-\details{
-
-}
 \examples{
 \donttest{
 get_installation_by_id(8077)

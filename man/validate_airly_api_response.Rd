@@ -8,7 +8,7 @@ it did not return an error http code.}
 validate_airly_api_response(airly_api_response)
 }
 \arguments{
-\item{airly_api_response}{hn_api_response object to be checked}
+\item{airly_api_response}{airly_api_response object to be checked}
 }
 \description{
 Checks if the given response is not empty and that

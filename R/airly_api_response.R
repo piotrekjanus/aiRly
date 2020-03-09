@@ -19,11 +19,11 @@ create_airly_api_response <- function(response) {
 }
 
 #' Checks whether the given object is of the class
-#' hn_api_response.
+#' airly_api_response
 #'
-#' @param x object to test if it is of the class hn_api_response
+#' @param x object to test if it is of the class airly_api_response
 #'
-#' @return TRUE if the object is of the class hn_api_response
+#' @return TRUE if the object is of the class airly_api_response
 #'
 is_airly_api_response <- function(x) {
   inherits(x, "airly_api_response")
@@ -43,7 +43,7 @@ get_content <- function(x) {
 #' Checks if the given response is not empty and that
 #' it did not return an error http code.
 #'
-#' @param airly_api_response hn_api_response object to be checked
+#' @param airly_api_response airly_api_response object to be checked
 #'
 #'
 validate_airly_api_response <- function(airly_api_response) {
@@ -54,7 +54,7 @@ validate_airly_api_response <- function(airly_api_response) {
                  airly_api_response$path))
   if (is.null(airly_api_response$content)) {
     warning(
-      sprintf("The content of the response is empty!\n<%s>", hn_api_response$path)
+      sprintf("The content of the response is empty!\n<%s>", airly_api_response$path)
     )
   }
 }

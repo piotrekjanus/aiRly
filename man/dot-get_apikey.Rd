@@ -6,9 +6,6 @@
 \usage{
 .get_apikey()
 }
-\value{
-
-}
 \description{
 Get apikey that was set by user
 }
