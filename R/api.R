@@ -1,9 +1,15 @@
-pkg.env <- new.env()
-pkg.env$apikey <- NULL
-pkg.env$limit <- NULL
-pkg.env$remaining <- NULL
 
-#' Returns the base url of Airly API
+# Create empty env to store all usefull informations
+# emptyenv added to protect against picking variables from parent env
+
+pkg.env <- new.env(parent = emptyenv())
+
+# Assign initial values to NULL
+assign("apikey", NULL, envir = pkg.env)
+assign("limit", NULL, envir = pkg.env)
+assign("remaining", NULL, envir = pkg.env)
+
+#' Return base url of Airly API v2
 #'
 .base_url <- function() {
   'https://airapi.airly.eu/v2'
@@ -11,6 +17,7 @@ pkg.env$remaining <- NULL
 
 
 #' Sends a request to the specified url and retrieves it's content.
+#'
 #'
 #' @param request_url url to be used
 #' @param apikey airly apikey
@@ -66,7 +73,6 @@ set_apikey <- function(key) {
   key
 }
 
-
 #' @title Get Airly installation by id
 #'
 #' @description Endpoint returns single installation metadata, given by id
@@ -79,7 +85,7 @@ set_apikey <- function(key) {
 #'
 #' @examples
 #' \donttest{
-#' get_installation_by_id(8077)
+#' get_installation_by_id(2137)
 #' }
 #'
 get_installation_by_id <- function(id) {
@@ -281,11 +287,20 @@ get_measurements_info <- function() {
 #'
 #' @examples
 #' \donttest{
+#' # Make any request before calling this function
 #' remaining_requests()
 #' }
 #'
 remaining_requests <- function() {
   api_key <- .get_apikey()
   assert_apikey(api_key)
-  create_airly_limit()
+  limit <- get("limit", envir = pkg.env)
+  remaining <-  get("remaining", envir = pkg.env)
+  if(is.null(limit) & is.null(remaining)) {
+    warning("You should make at least one request. Check me after making first call.")
+  }
+  list(
+    limit = limit,
+    remaining = remaining
+  )
 }

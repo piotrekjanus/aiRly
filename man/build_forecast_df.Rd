@@ -2,7 +2,7 @@
 % Please edit documentation in R/airly_measurement.R
 \name{build_forecast_df}
 \alias{build_forecast_df}
-\title{Creates an object representing Airly measurement}
+\title{Creates object containing information about history data for given API response}
 \usage{
 build_forecast_df(item)
 }
@@ -10,8 +10,8 @@ build_forecast_df(item)
 \item{item}{list returned by Airly API}
 }
 \value{
-object representing a airly_measurement
+tibble representing a airly_measurement with time, measures and indexes fields
 }
 \description{
-Creates an object representing Airly measurement
+Creates object containing information about history data for given API response
 }

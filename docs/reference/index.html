@@ -169,26 +169,21 @@ if it returns FALSE</p></td>
         <td>
           <p><code><a href="build_forecast_df.html">build_forecast_df()</a></code> </p>
         </td>
-        <td><p>Creates an object representing Airly measurement</p></td>
+        <td><p>Creates object containing information about history data for given API response</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="build_history_df.html">build_history_df()</a></code> </p>
         </td>
-        <td><p>Creates an object representing Airly measurement</p></td>
+        <td><p>Creates object containing information about history data for given API response</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="create_airly_api_response.html">create_airly_api_response()</a></code> </p>
         </td>
         <td><p>Creates an object representing a response from the
-Airly API</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_airly_limit.html">create_airly_limit()</a></code> </p>
-        </td>
-        <td><p>Creates an object representing Airly limit</p></td>
+Airly API. Also every API call return information about current limits
+What is used to assign variables in pkg.env</p></td>
       </tr><tr>
         
         <td>
@@ -206,7 +201,7 @@ Airly API</p></td>
         <td>
           <p><code><a href="create_airly_meta.html">create_airly_meta()</a></code> </p>
         </td>
-        <td><p>Creates an object representing Airly meta</p></td>
+        <td><p>Creates a data.frame representing Airly meta</p></td>
       </tr><tr>
         
         <td>
@@ -219,7 +214,7 @@ passed paths. The json extensions is added automatically.</p></td>
         <td>
           <p><code><a href="dot-base_url.html">.base_url()</a></code> </p>
         </td>
-        <td><p>Returns the base url of Airly API</p></td>
+        <td><p>Return base url of Airly API v2</p></td>
       </tr><tr>
         
         <td>
@@ -290,13 +285,6 @@ airly_api_response</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="is_airly_limit.html">is_airly_limit()</a></code> </p>
-        </td>
-        <td><p>Checks whether the given object is of the class
-airly_limit</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="is_airly_location.html">is_airly_location()</a></code> </p>
         </td>
         <td><p>Checks whether the given object is of the class
@@ -311,28 +299,9 @@ airly_measurement</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="is_airly_meta.html">is_airly_meta()</a></code> </p>
-        </td>
-        <td><p>Checks whether the given object is of the class
-airly_meta</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="parse_json.html">parse_json()</a></code> </p>
         </td>
         <td><p>Parses a json response</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.airly_limit.html">print(<i>&lt;airly_limit&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print for "airly_limit" type objects</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="print.airly_location.html">print(<i>&lt;airly_location&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print for "airly_location" type objects</p></td>
       </tr><tr>
         
         <td>
@@ -342,15 +311,16 @@ airly_meta</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="print.airly_meta.html">print(<i>&lt;airly_meta&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Print for "airly_meta" type objects</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="remaining_requests.html">remaining_requests()</a></code> </p>
         </td>
         <td><p>Get information about remaining API requests</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="replace_null.html">replace_null()</a></code> </p>
+        </td>
+        <td><p>Repalces NULL with NA for nested lists. Usefull when NULL value
+leads to error while object casting</p></td>
       </tr><tr>
         
         <td>
@@ -364,13 +334,6 @@ airly_meta</p></td>
         </td>
         <td><p>Checks if the given response is not empty and that
 it did not return an error http code.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_airly_limit.html">validate_airly_limit()</a></code> </p>
-        </td>
-        <td><p>Checks whether the given object is correctly defined
-airly_limit class</p></td>
       </tr><tr>
         
         <td>
@@ -390,8 +353,7 @@ airly_measurement class</p></td>
         <td>
           <p><code><a href="validate_airly_meta.html">validate_airly_meta()</a></code> </p>
         </td>
-        <td><p>Checks whether the given object is correctly defined
-airly_meta class</p></td>
+        <td><p>Checks whether the given object is correctly correctly defined</p></td>
       </tr>
     </tbody>
     </table>

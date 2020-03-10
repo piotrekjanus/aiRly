@@ -2,10 +2,10 @@
 % Please edit documentation in R/api.R
 \name{.base_url}
 \alias{.base_url}
-\title{Returns the base url of Airly API}
+\title{Return base url of Airly API v2}
 \usage{
 .base_url()
 }
 \description{
-Returns the base url of Airly API
+Return base url of Airly API v2
 }

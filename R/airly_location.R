@@ -1,25 +1,20 @@
-#' @title Print for "airly_location" type objects
-#'
-#' @param x "airly_location" type list
-#'
-#' @param ... further arguments passed to or from other methods
-#'
-#' @export
-#'
-
-print.airly_location <- function(x, ...) {
-  utils::str(x)
-}
+library(tibble)
 
 #' Creates an object representing Airly location
 #'
 #' @param item list returned by Airly API
 #'
-#' @return object representing a airly_location
+#' @return tibble representing an airly_location
 #'
 create_airly_location <- function(item) {
-  airly_location <- as.data.frame(item)
-  # validate_airly_location(airly_location)
+  item <- replace_null(item)
+  airly_location <- tibble::tibble(id = item$id,
+                                   elevation = item$elevation,
+                                   is_airly = item$airly,
+                                   location = as_tibble(item$location),
+                                   address = as_tibble(item$address),
+                                   sponsor = as_tibble(item$sponsor))
+  validate_airly_location(airly_location)
   airly_location
 }
 
@@ -37,9 +32,8 @@ is_airly_location <- function(x) {
 #' Checks whether the given object is correctly defined
 #' airly_location class
 #'
-#' @param airly_location object of the class airly_location
+#' @param airly_location tibble airly_location
 #'
 validate_airly_location <- function(airly_location) {
   assert(exists("id", where = airly_location), "Object's id is required")
-  assert(is_airly_location(airly_location), "Object must be of the class airly_location")
 }

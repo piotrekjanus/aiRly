@@ -2,8 +2,7 @@
 % Please edit documentation in R/airly_meta.R
 \name{validate_airly_meta}
 \alias{validate_airly_meta}
-\title{Checks whether the given object is correctly defined
-airly_meta class}
+\title{Checks whether the given object is correctly correctly defined}
 \usage{
 validate_airly_meta(airly_meta)
 }
@@ -11,6 +10,5 @@ validate_airly_meta(airly_meta)
 \item{airly_meta}{object of the class airly_meta}
 }
 \description{
-Checks whether the given object is correctly defined
-airly_meta class
+Checks whether the given object is correctly correctly defined
 }

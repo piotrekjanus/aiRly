@@ -3,7 +3,8 @@
 \name{create_airly_api_response}
 \alias{create_airly_api_response}
 \title{Creates an object representing a response from the
-Airly API}
+Airly API. Also every API call return information about current limits
+What is used to assign variables in pkg.env}
 \usage{
 create_airly_api_response(response)
 }
@@ -16,5 +17,6 @@ Airly API
 }
 \description{
 Creates an object representing a response from the
-Airly API
+Airly API. Also every API call return information about current limits
+What is used to assign variables in pkg.env
 }
