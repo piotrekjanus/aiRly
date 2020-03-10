@@ -14,6 +14,7 @@ Default rate limit per apikey is 100 API requests per day for all users. In orde
 }
 \examples{
 \donttest{
+# Make any request before calling this function
 remaining_requests()
 }
 

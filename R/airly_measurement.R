@@ -31,18 +31,18 @@ create_airly_measurement <- function(item) {
   airly_measurement
 }
 
-#' Creates an object representing Airly measurement
+#' Creates object containing information about history data for given API response
 #'
 #' @param item list returned by Airly API
 #'
-#' @return object representing a airly_measurement
+#' @return tibble representing a airly_measurement with time, measures and indexes fields
 #'
 build_history_df <- function(item) {
   if (exists("history", where = item)) {
     history <- item$history
-    values_df <- do.call(rbind, lapply(history$values, function(x) as.data.frame(t(x[2]))))
-    row.names(values_df) <- 1:nrow(values_df)
-    names(values_df) <- history$values[[1]]$name
+    measure_df <- do.call(rbind, lapply(history$values, function(x) as.data.frame(t(x[2]))))
+    row.names(measure_df) <- 1:nrow(measure_df)
+    names(measure_df) <- history$values[[1]]$name
 
     time_df <- data.frame(from = strptime(history$fromDateTime, "%Y-%m-%dT%H:%M:%OSZ"),
                           to = strptime(history$tillDateTime, "%Y-%m-%dT%H:%M:%OSZ"))
@@ -51,7 +51,9 @@ build_history_df <- function(item) {
     row.names(indexes_df) <- 1:nrow(indexes_df)
     names(indexes_df) <- history$indexes[[1]]$name
 
-    airly_history <- cbind(time_df, values_df, indexes_df)
+    airly_history <- tibble::tibble(time = time_df,
+                                    measure = measure_df,
+                                    index = indexes_df)
     airly_history
 
   } else {
@@ -61,18 +63,18 @@ build_history_df <- function(item) {
 
 }
 
-#' Creates an object representing Airly measurement
+#' Creates object containing information about history data for given API response
 #'
 #' @param item list returned by Airly API
 #'
-#' @return object representing a airly_measurement
+#' @return tibble representing a airly_measurement with time, measures and indexes fields
 #'
 build_forecast_df <- function(item) {
   if (exists("forecast", where = item)) {
     forecast <- item$forecast
-    values_df <- do.call(rbind, lapply(forecast$values, function(x) as.data.frame(t(x[2]))))
-    row.names(values_df) <- 1:nrow(values_df)
-    names(values_df) <- forecast$values[[1]]$name
+    measure_df <- do.call(rbind, lapply(forecast$values, function(x) as.data.frame(t(x[2]))))
+    row.names(measure_df) <- 1:nrow(measure_df)
+    names(measure_df) <- forecast$values[[1]]$name
 
     time_df <- data.frame(from = strptime(forecast$fromDateTime, "%Y-%m-%dT%H:%M:%OSZ"),
                           to = strptime(forecast$tillDateTime, "%Y-%m-%dT%H:%M:%OSZ"))
@@ -81,7 +83,9 @@ build_forecast_df <- function(item) {
     row.names(indexes_df) <- 1:nrow(indexes_df)
     names(indexes_df) <- forecast$indexes[[1]]$name
 
-    airly_forecast <- cbind(time_df, values_df, indexes_df)
+    airly_forecast <- tibble::tibble(time = time_df,
+                                    measure = measure_df,
+                                    index = indexes_df)
     airly_forecast
 
   } else {
@@ -100,9 +104,9 @@ build_forecast_df <- function(item) {
 build_current_df <- function(item) {
   if (exists("current", where = item)) {
     current <- item$current
-    values_df <- as.data.frame(t(current$values[[2]]))
-    row.names(values_df) <- 1:nrow(values_df)
-    names(values_df) <- current$values$name
+    measure_df <- as.data.frame(t(current$values[[2]]))
+    row.names(measure_df) <- 1:nrow(measure_df)
+    names(measure_df) <- current$values$name
 
     time_df <- data.frame(from = strptime(current$fromDateTime, "%Y-%m-%dT%H:%M:%OSZ"),
                           to = strptime(current$tillDateTime, "%Y-%m-%dT%H:%M:%OSZ"))
@@ -111,7 +115,9 @@ build_current_df <- function(item) {
     indexes_df <- reshape2::acast(indexes_df, value~name)
     row.names(indexes_df) <- 1:nrow(indexes_df)
 
-    airly_current <- cbind(time_df, values_df, indexes_df)
+    airly_current <- tibble::tibble(time = time_df,
+                                    measure = measure_df,
+                                    index = indexes_df)
     airly_current
 
   } else {
@@ -138,7 +144,10 @@ is_airly_measurement <- function(x) {
 #' @param airly_measurement object of the class airly_measurement
 #'
 validate_airly_measurement <- function(airly_measurement) {
-  # assert(exists("id", where = airly_measurement), "Object's id is required")
+  assert(exists("history", where = airly_measurement), "Object does not contain 'history' field")
+  assert(exists("raw_data", where = airly_measurement), "Object does not contain 'raw_data' field")
+  assert(exists("forecast", where = airly_measurement), "Object does not contain 'forecast' field")
+  assert(exists("current", where = airly_measurement), "Object does not contain current field")
   assert(is_airly_measurement(airly_measurement), "Object must be of the class airly_measurement")
 }
 

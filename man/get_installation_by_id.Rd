@@ -17,7 +17,7 @@ Endpoint returns single installation metadata, given by id
 }
 \examples{
 \donttest{
-get_installation_by_id(8077)
+get_installation_by_id(2137)
 }
 
 }

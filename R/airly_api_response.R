@@ -1,5 +1,6 @@
 #' Creates an object representing a response from the
-#' Airly API
+#' Airly API. Also every API call return information about current limits
+#' What is used to assign variables in pkg.env
 #'
 #' @param response response object
 #'
@@ -48,7 +49,6 @@ get_content <- function(x) {
 #' it did not return an error http code.
 #'
 #' @param airly_api_response airly_api_response object to be checked
-#'
 #'
 validate_airly_api_response <- function(airly_api_response) {
   assert(!httr::http_error(airly_api_response$response),
