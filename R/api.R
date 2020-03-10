@@ -107,10 +107,10 @@ get_installation_by_id <- function(id) {
 #'
 #' @examples
 #' \donttest{
-#' get_nearest_instalattions(50.11670, 19.91429, max_distance = 20)
+#' get_nearest_installations(50.11670, 19.91429, max_distance = 20)
 #' }
 #'
-get_nearest_instalattions <- function(lat, lng, max_distance=NULL, max_results=NULL) {
+get_nearest_installations <- function(lat, lng, max_distance=NULL, max_results=NULL) {
   assert_coordinates(lat, lng)
   api_key <- .get_apikey()
   assert_apikey(api_key)
@@ -240,7 +240,6 @@ get_installation_measurements <- function(id) {
 get_indexes <- function() {
   api_key <- .get_apikey()
   assert_apikey(api_key)
-
   request_url <- create_request_url(.base_url(),
                                     paths=c("meta", "indexes"),
                                     add_json_ext = FALSE)

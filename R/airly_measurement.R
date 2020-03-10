@@ -44,12 +44,12 @@ build_history_df <- function(item) {
     row.names(values_df) <- 1:nrow(values_df)
     names(values_df) <- history$values[[1]]$name
 
-    time_df <- data.frame(from = history$fromDateTime,
-                          to = history$tillDateTime)
+    time_df <- data.frame(from = strptime(history$fromDateTime, "%Y-%m-%dT%H:%M:%OSZ"),
+                          to = strptime(history$tillDateTime, "%Y-%m-%dT%H:%M:%OSZ"))
 
-    indexes_df <- do.call(rbind, lapply(history$indexes, function(x) as.data.frame(x)))
-    indexes_df <- reshape2::acast(indexes_df, value~name)
+    indexes_df <- do.call(rbind, lapply(history$indexes,function(x) as.data.frame(t(x[2]))))
     row.names(indexes_df) <- 1:nrow(indexes_df)
+    names(indexes_df) <- history$indexes[[1]]$name
 
     airly_history <- cbind(time_df, values_df, indexes_df)
     airly_history
@@ -74,12 +74,12 @@ build_forecast_df <- function(item) {
     row.names(values_df) <- 1:nrow(values_df)
     names(values_df) <- forecast$values[[1]]$name
 
-    time_df <- data.frame(from = forecast$fromDateTime,
-                          to = forecast$tillDateTime)
+    time_df <- data.frame(from = strptime(forecast$fromDateTime, "%Y-%m-%dT%H:%M:%OSZ"),
+                          to = strptime(forecast$tillDateTime, "%Y-%m-%dT%H:%M:%OSZ"))
 
-    indexes_df <- do.call(rbind, lapply(forecast$indexes, function(x) as.data.frame(x)))
-    indexes_df <- reshape2::acast(indexes_df, value~name)
+    indexes_df <- do.call(rbind, lapply(forecast$indexes,function(x) as.data.frame(t(x[2]))))
     row.names(indexes_df) <- 1:nrow(indexes_df)
+    names(indexes_df) <- forecast$indexes[[1]]$name
 
     airly_forecast <- cbind(time_df, values_df, indexes_df)
     airly_forecast
@@ -104,8 +104,8 @@ build_current_df <- function(item) {
     row.names(values_df) <- 1:nrow(values_df)
     names(values_df) <- current$values$name
 
-    time_df <- data.frame(from = current$fromDateTime,
-                          to = current$tillDateTime)
+    time_df <- data.frame(from = strptime(current$fromDateTime, "%Y-%m-%dT%H:%M:%OSZ"),
+                          to = strptime(current$tillDateTime, "%Y-%m-%dT%H:%M:%OSZ"))
 
     indexes_df <-  as.data.frame(current$indexes)
     indexes_df <- reshape2::acast(indexes_df, value~name)
