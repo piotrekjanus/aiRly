@@ -1,5 +1,5 @@
 
-# aiRly
+# aiRly <img src="man/figures/hexsticker.png" align="right" width="120" />
 
 <!-- badges: start -->
 
@@ -105,6 +105,6 @@ left. We will simply use `remaining_requests`
 remaining_requests()
 #> List of 2
 #>  $ limit    : num 100
-#>  $ remaining: num 80
+#>  $ remaining: num 72
 #>  - attr(*, "class")= chr "airly_limit"
 ```
