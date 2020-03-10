@@ -33,7 +33,7 @@ to -1 in order to get all stations in the neighbourhood
 ``` r
 library(aiRly)
 library(dplyr)
-set_apikey("dFpHFmGiqCyDdc9TIv8dp0v9iL6PEBwW")
+
 stations <- get_nearest_installations(50.11670, 19.91429, max_distance = 20, max_results = -1)
 ```
 
@@ -96,7 +96,7 @@ g <- ggplot() +
 g
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 After we made few requests, we would like to check how many we have
 left. We will simply use `remaining_requests`
@@ -105,6 +105,6 @@ left. We will simply use `remaining_requests`
 remaining_requests()
 #> List of 2
 #>  $ limit    : num 100
-#>  $ remaining: num 72
+#>  $ remaining: num 69
 #>  - attr(*, "class")= chr "airly_limit"
 ```
