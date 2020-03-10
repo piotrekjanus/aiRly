@@ -22,12 +22,7 @@ create_airly_meta <- function(item) {
     }
     item <- do.call(rbind, item$levels)
     item <- item[, -which(names(item) %in% c("values", "level"))]
-    airly_meta <- structure(
-      item,
-      class =  "airly_meta"
-    )
-    validate_airly_meta(airly_meta)
-    airly_meta
+    item
   } else {
     NULL
   }
@@ -49,6 +44,6 @@ is_airly_meta <- function(x) {
 #'
 #' @param airly_meta object of the class airly_meta
 validate_airly_meta <- function(airly_meta) {
-  assert(all(c("name", "minValue","maxValue" %in% names(airly_meta))), "Object must be of the class airly_meta")
+  assert(all(c("name", "minValue","maxValue") %in% names(airly_meta)), "Object must be of the class airly_meta")
   assert(is_airly_meta(airly_meta), "Object must be of the class airly_meta")
 }

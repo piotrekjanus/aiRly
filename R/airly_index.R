@@ -18,11 +18,8 @@ print.airly_location <- function(x, ...) {
 #' @return object representing a airly_location
 #'
 create_airly_location <- function(item) {
-  airly_location <- structure(
-    item,
-    class = "airly_location"
-  )
-  validate_airly_location(airly_location)
+  airly_location <- as.data.frame(item)
+  # validate_airly_location(airly_location)
   airly_location
 }
 
