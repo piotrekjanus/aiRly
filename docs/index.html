@@ -69,16 +69,77 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="airly" class="section level1">
+<div id="airly-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#airly" class="anchor"></a>aiRly</h1></div>
+<a href="#airly-" class="anchor"></a>aiRly <img src="reference/figures/hexsticker.png" align="right" width="120">
+</h1></div>
 <!-- badges: start -->
 
-<p>aiRly is a R wrapper for <a href="https://airly.eu/">Airly</a></p>
+<p>aiRly is an unofficial R wrapper for <a href="https://airly.eu/">Airly</a>, platform which mission is to monitor and inform millions of people about the current state of air quality.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><code><a href="https://rdrr.io/pkg/devtools/man/reexports.html">devtools::install_github("piotrekjanus/aiRly")</a></code></p>
+<p>You can install current development version of aiRly from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"piotrekjanus/aiRly"</span>)</a></code></pre></div>
+</div>
+<div id="example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h2>
+<p>This is a basic example of package usage. First, we would like to check if there are any near stations in range of 20 km. We set <code>max_results</code> to -1 in order to get all stations in the neighbourhood</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(aiRly)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="reference/set_apikey.html">set_apikey</a></span>(<span class="st">"dFpHFmGiqCyDdc9TIv8dp0v9iL6PEBwW"</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">stations &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_nearest_installations.html">get_nearest_installations</a></span>(<span class="fl">50.11670</span>, <span class="fl">19.91429</span>, <span class="dt">max_distance =</span> <span class="dv">20</span>, <span class="dt">max_results =</span> <span class="dv">-1</span>)</a></code></pre></div>
+<p>Let’s filter only for Airly stations and choose stations which are located at the highest and lowest point a.s.l.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">minmax_station &lt;-<span class="st"> </span>stations <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="st">                    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(airly) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="st">                    </span><span class="kw">summarize</span>(<span class="dt">min_elevation_id =</span> id[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span>(elevation)], </a>
+<a class="sourceLine" id="cb3-4" title="4">                              <span class="dt">max_elevation_id =</span> id[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span>(elevation)])</a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6">highest_installation &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_installation_measurements.html">get_installation_measurements</a></span>(minmax_station<span class="op">$</span>max_elevation_id)</a>
+<a class="sourceLine" id="cb3-7" title="7">lowest_installation &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_installation_measurements.html">get_installation_measurements</a></span>(minmax_station<span class="op">$</span>min_elevation_id)</a></code></pre></div>
+<p>Ok, we have just received information about <code>current</code> state, last <code>24h history</code> and <code>forecasts</code> for next day for both installations.</p>
+<p>Let’s make some visualizations</p>
+<p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
+<p>We can see that most of the time, air quality is worse (and will be) in lower part of Krakow. Ok, but are those sensors readings indicating high pollution? We can check it using <code>get_indexes</code> function, which fill translate values of AIRLY_CAQI variable</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">indexes &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_indexes.html">get_indexes</a></span>()</a>
+<a class="sourceLine" id="cb4-2" title="2">airly_caqi &lt;-<span class="st"> </span>indexes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(name <span class="op">==</span><span class="st"> "AIRLY_CAQI"</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3">airly_caqi[<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(airly_caqi)] &lt;-<span class="st"> </span><span class="ot">Inf</span> </a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5">history_high &lt;-<span class="st"> </span>highest_installation<span class="op">$</span>history</a>
+<a class="sourceLine" id="cb4-6" title="6">history_high<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(history_high<span class="op">$</span>AIRLY_CAQI, </a>
+<a class="sourceLine" id="cb4-7" title="7">                        <span class="cf">function</span>(x) airly_caqi[x <span class="op">&gt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>minValue <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>maxValue, <span class="st">"description"</span>]))</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9">history_low &lt;-<span class="st"> </span>lowest_installation<span class="op">$</span>history</a>
+<a class="sourceLine" id="cb4-10" title="10">history_low<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(history_low<span class="op">$</span>AIRLY_CAQI, </a>
+<a class="sourceLine" id="cb4-11" title="11">                        <span class="cf">function</span>(x) airly_caqi[x <span class="op">&gt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>minValue <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>maxValue, <span class="st">"description"</span>]))</a>
+<a class="sourceLine" id="cb4-12" title="12"></a>
+<a class="sourceLine" id="cb4-13" title="13">g &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="st">  </span><span class="kw">geom_rect</span>(history_high, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xmin=</span>from, <span class="dt">xmax =</span> to, <span class="dt">ymin=</span><span class="dv">0</span>, <span class="dt">ymax=</span>.<span class="dv">1</span>, <span class="dt">fill =</span> status)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="st">  </span><span class="kw">geom_rect</span>(history_low, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xmin=</span>from, <span class="dt">xmax =</span> to, <span class="dt">ymin=</span><span class="fl">0.2</span>, <span class="dt">ymax=</span>.<span class="dv">3</span>, <span class="dt">fill =</span> status))<span class="op">+</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Very Low"</span> =<span class="st"> "#6BC926"</span>,</a>
+<a class="sourceLine" id="cb4-17" title="17">                               <span class="st">"Low"</span>    =<span class="st"> "#D1CF1E"</span>,</a>
+<a class="sourceLine" id="cb4-18" title="18">                               <span class="st">"Medium"</span> =<span class="st"> "#EFBB0F"</span>,</a>
+<a class="sourceLine" id="cb4-19" title="19">                               <span class="st">"High"</span>   =<span class="st"> "#EF7120"</span>,</a>
+<a class="sourceLine" id="cb4-20" title="20">                               <span class="st">"Very High"</span> =<span class="st">"#EF2A36"</span>,</a>
+<a class="sourceLine" id="cb4-21" title="21">                               <span class="st">"Extreme"</span> =<span class="st"> "#B00057"</span>,</a>
+<a class="sourceLine" id="cb4-22" title="22">                               <span class="st">"Airmageddon!"</span> =<span class="st"> "#770078"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-23" title="23"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">"text"</span>, <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(history_high<span class="op">$</span>from), <span class="dt">y =</span> <span class="fl">0.25</span>, <span class="dt">label =</span> <span class="st">"high a.s.l"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-24" title="24"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">"text"</span>, <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(history_low<span class="op">$</span>from), <span class="dt">y =</span> <span class="fl">0.05</span>, <span class="dt">label =</span> <span class="st">"low a.s.l"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-25" title="25"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-26" title="26"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>(),</a>
+<a class="sourceLine" id="cb4-27" title="27">        <span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-28" title="28"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">""</span>) <span class="op">+</span><span class="kw">xlab</span>(<span class="st">""</span>)</a>
+<a class="sourceLine" id="cb4-29" title="29"></a>
+<a class="sourceLine" id="cb4-30" title="30"></a>
+<a class="sourceLine" id="cb4-31" title="31">g</a></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
+<p>After we made few requests, we would like to check how many we have left. We will simply use <code>remaining_requests</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="reference/remaining_requests.html">remaining_requests</a></span>()</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt; List of 2</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt;  $ limit    : num 100</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;  $ remaining: num 72</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;  - attr(*, "class")= chr "airly_limit"</span></a></code></pre></div>
 </div>
 </div>
   </div>
