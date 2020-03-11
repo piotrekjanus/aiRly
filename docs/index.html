@@ -88,7 +88,7 @@
 <p>This is a basic example of package usage. First, we would like to check if there are any near stations in range of 20 km. We set <code>max_results</code> to -1 in order to get all stations in the neighbourhood</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(aiRly)</a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="reference/set_apikey.html">set_apikey</a></span>(<span class="st">"dFpHFmGiqCyDdc9TIv8dp0v9iL6PEBwW"</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
 <a class="sourceLine" id="cb2-4" title="4">stations &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_nearest_installations.html">get_nearest_installations</a></span>(<span class="fl">50.11670</span>, <span class="fl">19.91429</span>, <span class="dt">max_distance =</span> <span class="dv">20</span>, <span class="dt">max_results =</span> <span class="dv">-1</span>)</a></code></pre></div>
 <p>Let’s filter only for Airly stations and choose stations which are located at the highest and lowest point a.s.l.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">minmax_station &lt;-<span class="st"> </span>stations <span class="op">%&gt;%</span></a>
@@ -133,12 +133,12 @@
 <a class="sourceLine" id="cb4-29" title="29"></a>
 <a class="sourceLine" id="cb4-30" title="30"></a>
 <a class="sourceLine" id="cb4-31" title="31">g</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
 <p>After we made few requests, we would like to check how many we have left. We will simply use <code>remaining_requests</code></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="reference/remaining_requests.html">remaining_requests</a></span>()</a>
 <a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt; List of 2</span></a>
 <a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt;  $ limit    : num 100</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;  $ remaining: num 72</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt;  $ remaining: num 69</span></a>
 <a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;  - attr(*, "class")= chr "airly_limit"</span></a></code></pre></div>
 </div>
 </div>

@@ -19,7 +19,8 @@ Imports:
     utils,
     httr,
     jsonlite,
-    reshape2
+    reshape2,
+    tibble
 URL: https://github.com/piotrekjanus/aiRly
 BugReports: https://github.com/piotrekjanus/aiRly/issues
 Language: en-US

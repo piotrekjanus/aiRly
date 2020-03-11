@@ -2,7 +2,7 @@
 % Please edit documentation in R/airly_meta.R
 \name{create_airly_meta}
 \alias{create_airly_meta}
-\title{Creates an object representing Airly meta}
+\title{Creates a data.frame representing Airly meta}
 \usage{
 create_airly_meta(item)
 }
@@ -10,8 +10,8 @@ create_airly_meta(item)
 \item{item}{list returned by Airly API}
 }
 \value{
-object representing an airly_meta
+data.frame representing an airly_meta
 }
 \description{
-Creates an object representing Airly meta
+Creates a data.frame representing Airly meta
 }
