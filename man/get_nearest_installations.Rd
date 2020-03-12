@@ -4,8 +4,7 @@
 \alias{get_nearest_installations}
 \title{Get Airly nearest installations to given point}
 \usage{
-get_nearest_installations(lat, lng, max_distance = NULL,
-  max_results = NULL)
+get_nearest_installations(lat, lng, max_distance = NULL, max_results = NULL)
 }
 \arguments{
 \item{lat}{latitude as decimal degree}
