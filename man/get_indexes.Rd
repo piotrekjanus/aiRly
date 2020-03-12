@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{get_indexes}
 \alias{get_indexes}
-\title{Get Airly avaiable indexes}
+\title{Get Airly available indexes}
 \usage{
 get_indexes()
 }

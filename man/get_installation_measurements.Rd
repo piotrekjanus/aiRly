@@ -2,7 +2,7 @@
 % Please edit documentation in R/api.R
 \name{get_installation_measurements}
 \alias{get_installation_measurements}
-\title{Get Airly measurements for any geographical locationgiven installation id}
+\title{Get Airly measurements for any geographical location given installation id}
 \usage{
 get_installation_measurements(id)
 }

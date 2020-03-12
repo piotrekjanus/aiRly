@@ -1,5 +1,3 @@
-library(tibble)
-
 #' Creates an object representing Airly location
 #'
 #' @param item list returned by Airly API
@@ -11,9 +9,9 @@ create_airly_location <- function(item) {
   airly_location <- tibble::tibble(id = item$id,
                                    elevation = item$elevation,
                                    is_airly = item$airly,
-                                   location = as_tibble(item$location),
-                                   address = as_tibble(item$address),
-                                   sponsor = as_tibble(item$sponsor))
+                                   location = tibble::as_tibble(item$location),
+                                   address = tibble::as_tibble(item$address),
+                                   sponsor = tibble::as_tibble(item$sponsor))
   validate_airly_location(airly_location)
   airly_location
 }

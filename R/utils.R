@@ -12,11 +12,11 @@ parse_json <- function(response) {
   jsonlite::fromJSON(content)
 }
 
-#' Repalces NULL with NA for nested lists. Usefull when NULL value
+#' Replaces NULL with NA for nested lists. Useful when NULL value
 #' leads to error while object casting
 #' @param x nested list
 #'
-#' @return same list with NULL relaced with NA
+#' @return same list with NULL replaced with NA
 #'
 replace_null <- function(x) {
   lapply(x, function(x) {
