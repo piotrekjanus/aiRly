@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{replace_null}
 \alias{replace_null}
-\title{Repalces NULL with NA for nested lists. Usefull when NULL value
+\title{Replaces NULL with NA for nested lists. Useful when NULL value
 leads to error while object casting}
 \usage{
 replace_null(x)
@@ -11,9 +11,9 @@ replace_null(x)
 \item{x}{nested list}
 }
 \value{
-same list with NULL relaced with NA
+same list with NULL replaced with NA
 }
 \description{
-Repalces NULL with NA for nested lists. Usefull when NULL value
+Replaces NULL with NA for nested lists. Useful when NULL value
 leads to error while object casting
 }

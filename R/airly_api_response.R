@@ -9,7 +9,7 @@
 #'
 create_airly_api_response <- function(response) {
   parsed_content <- parse_json(response)
-  if(exists("headers", response)) {
+  if(exists("x-ratelimit-limit-day", response$headers)) {
     assign("limit", as.numeric(response$headers$`x-ratelimit-limit-day`), envir = pkg.env)
     assign("remaining", as.numeric(response$headers$`x-ratelimit-remaining-day`), envir = pkg.env)
   }

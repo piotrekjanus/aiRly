@@ -1,0 +1,13 @@
+{
+  "errorCode":"API_REQUEST_INVALID",
+  "message":"API Request was not valid",
+  "details":{
+    "violations":[
+      {
+        "parameter":"lat",
+        "message":"latitude value must be between -90.0 and +90.0",
+        "rejectedValue":200.0
+      }
+      ]
+  }
+}

@@ -201,7 +201,7 @@ get_point_measurements <- function(lat, lng) {
 }
 
 
-#' @title Get Airly measurements for any geographical locationgiven installation id
+#' @title Get Airly measurements for any geographical location given installation id
 #'
 #' @description Endpoint returns measurements for concrete installation given by installation Id
 #'
@@ -230,7 +230,7 @@ get_installation_measurements <- function(id) {
   create_airly_measurement(item)
 }
 
-#' @title Get Airly avaiable indexes
+#' @title Get Airly available indexes
 #'
 #' @description Endpoint returns a list of all the index types supported in the API along with lists of levels defined per each index type.
 #'

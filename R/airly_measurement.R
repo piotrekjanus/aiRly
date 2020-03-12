@@ -1,3 +1,5 @@
+#' @importFrom tibble as_tibble
+
 #' @title Print for "airly_measurement" type objects
 #'
 #' @param x "airly_measurement" type list
@@ -51,9 +53,9 @@ build_history_df <- function(item) {
     row.names(indexes_df) <- 1:nrow(indexes_df)
     names(indexes_df) <- history$indexes[[1]]$name
 
-    airly_history <- tibble::tibble(time = time_df,
-                                    measure = measure_df,
-                                    index = indexes_df)
+    airly_history <- tibble::tibble(time = as_tibble(time_df),
+                                    measure = as_tibble(measure_df),
+                                    index = as_tibble(indexes_df))
     airly_history
 
   } else {
@@ -83,11 +85,10 @@ build_forecast_df <- function(item) {
     row.names(indexes_df) <- 1:nrow(indexes_df)
     names(indexes_df) <- forecast$indexes[[1]]$name
 
-    airly_forecast <- tibble::tibble(time = time_df,
-                                    measure = measure_df,
-                                    index = indexes_df)
+    airly_forecast <- tibble::tibble(time = as_tibble(time_df),
+                                    measure = as_tibble(measure_df),
+                                    index = as_tibble(indexes_df))
     airly_forecast
-
   } else {
     warning("Forecast is not available for this point")
     NULL
@@ -115,9 +116,9 @@ build_current_df <- function(item) {
     indexes_df <- reshape2::acast(indexes_df, value~name)
     row.names(indexes_df) <- 1:nrow(indexes_df)
 
-    airly_current <- tibble::tibble(time = time_df,
-                                    measure = measure_df,
-                                    index = indexes_df)
+    airly_current <- tibble::tibble(time = as_tibble(time_df),
+                                    measure = as_tibble(measure_df),
+                                    index = as_tibble(indexes_df))
     airly_current
 
   } else {
