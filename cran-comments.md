@@ -1,4 +1,6 @@
+## Resubmission
 
+* Fixed the title and description of the package.
 
 ## Test environments
 * local OS X install, R 3.6.0
