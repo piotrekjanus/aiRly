@@ -1,6 +1,6 @@
 Package: aiRly
 Type: Package
-Title: R wrapper for Airly API
+Title: R Wrapper for 'Airly' API
 Version: 0.1.0
 Authors@R: c(
       person(given = "Piotr", 
@@ -9,12 +9,12 @@ Authors@R: c(
              email = "piotr_janus@icloud.com")
     )
 Maintainer: Piotr Janus <piotr_janus@icloud.com>
-Description: Get information about air quality using Airly <https://airly.eu/> API through R.
+Description: Get information about air quality using 'Airly' <https://airly.eu/> API through R.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Imports: 
     utils,
     httr,
