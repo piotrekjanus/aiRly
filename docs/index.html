@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>API wrapper for Airly API • aiRly</title>
+<title>R Wrapper for Airly API • aiRly</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="API wrapper for Airly API">
+<script src="pkgdown.js"></script><meta property="og:title" content="R Wrapper for Airly API">
 <meta property="og:description" content="Get information about air quality using Airly &lt;https://airly.eu/&gt; API through R.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -75,111 +75,114 @@
 </h1></div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p>aiRly is an unofficial R wrapper for <a href="https://airly.eu/">Airly</a>, platform which mission is to monitor and inform millions of people about the current state of air quality.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install current development version of aiRly from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"piotrekjanus/aiRly"</span>)</a></code></pre></div>
+<p>aiRly is available on CRAN, so you can install it using</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"aiRly"</span>)</a></code></pre></div>
+<p>Also, you can install current development version of aiRly from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"piotrekjanus/aiRly"</span>)</a></code></pre></div>
 </div>
 <div id="set-developer-account" class="section level2">
 <h2 class="hasAnchor">
 <a href="#set-developer-account" class="anchor"></a>Set developer account</h2>
-<p>First, you should start with setting your Airly developer account at <a href="https://developer.airly.eu/">Airly developer</a>. After you receive key, we can check air condition!</p>
+<p>First, you should start with setting your Airly developer account at <a href="https://developer.airly.eu/">Airly developer</a>. After you receive key, it’s time to make a use of this package!</p>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example of package usage.</p>
 <p>Let’s find out if there are any near stations somewhere in Krakow, Poland. We will look for stations in a range of 20 km. We set <code>max_results</code> to -1 in order to get all stations in the neighborhood.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(aiRly)</a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3">api_key &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"api_key"</span>)</a>
-<a class="sourceLine" id="cb2-4" title="4">aiRly<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/aiRly/man/set_apikey.html">set_apikey</a></span>(api_key)</a>
-<a class="sourceLine" id="cb2-5" title="5"></a>
-<a class="sourceLine" id="cb2-6" title="6">stations &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_nearest_installations.html">get_nearest_installations</a></span>(<span class="fl">50.11670</span>, <span class="fl">19.91429</span>, <span class="dt">max_distance =</span> <span class="dv">20</span>, <span class="dt">max_results =</span> <span class="dv">-1</span>)</a></code></pre></div>
-<p>Let’s filter only for Airly stations and choose those which are located at the highest and lowest point a.s.l.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">minmax_station &lt;-<span class="st"> </span>stations <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="st">                    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(is_airly) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="st">                    </span><span class="kw">summarize</span>(<span class="dt">min_elevation_id =</span> id[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span>(elevation)], </a>
-<a class="sourceLine" id="cb3-4" title="4">                              <span class="dt">max_elevation_id =</span> id[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span>(elevation)])</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(aiRly)</a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">api_key &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"api_key"</span>)</a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw"><a href="reference/set_apikey.html">set_apikey</a></span>(api_key)</a>
 <a class="sourceLine" id="cb3-5" title="5"></a>
-<a class="sourceLine" id="cb3-6" title="6">h_station &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_installation_measurements.html">get_installation_measurements</a></span>(minmax_station<span class="op">$</span>max_elevation_id)</a>
-<a class="sourceLine" id="cb3-7" title="7">l_station &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_installation_measurements.html">get_installation_measurements</a></span>(minmax_station<span class="op">$</span>min_elevation_id)</a></code></pre></div>
+<a class="sourceLine" id="cb3-6" title="6">stations &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_nearest_installations.html">get_nearest_installations</a></span>(<span class="fl">50.11670</span>, <span class="fl">19.91429</span>, <span class="dt">max_distance =</span> <span class="dv">20</span>, <span class="dt">max_results =</span> <span class="dv">-1</span>)</a></code></pre></div>
+<p>Let’s filter only for Airly stations and choose those which are located at the highest and lowest point a.s.l.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">minmax_station &lt;-<span class="st"> </span>stations <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="st">                    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(is_airly) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="st">                    </span><span class="kw">summarize</span>(<span class="dt">min_elevation_id =</span> id[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span>(elevation)], </a>
+<a class="sourceLine" id="cb4-4" title="4">                              <span class="dt">max_elevation_id =</span> id[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span>(elevation)])</a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6">h_station &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_installation_measurements.html">get_installation_measurements</a></span>(minmax_station<span class="op">$</span>max_elevation_id)</a>
+<a class="sourceLine" id="cb4-7" title="7">l_station &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_installation_measurements.html">get_installation_measurements</a></span>(minmax_station<span class="op">$</span>min_elevation_id)</a></code></pre></div>
 <p>Ok, we have just received information about <code>current</code> state, last <code>24h history</code> and <code>forecasts</code> for next day for both installations.</p>
 <p>Let’s make some visualizations</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(gridExtra)</a>
-<a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4">g1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="st">        </span><span class="kw">geom_col</span>(h_station<span class="op">$</span>history, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"High"</span>),  <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="st">        </span><span class="kw">geom_col</span>(l_station<span class="op">$</span>history, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"Low"</span>), <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">        </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#40798C"</span>, <span class="st">"#CFD7C7"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="st">        </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="st">        </span><span class="kw">xlab</span>(<span class="st">"time"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="st">        </span><span class="kw">ylab</span>(<span class="st">"PM25"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-11" title="11"><span class="st">        </span><span class="kw">ggtitle</span>(<span class="st">"History"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="st">        </span><span class="kw">theme</span>(<span class="dt">panel.grid.major.x =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb4-13" title="13">              <span class="dt">panel.grid.minor.x =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb4-14" title="14">              <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>),</a>
-<a class="sourceLine" id="cb4-15" title="15">              <span class="dt">legend.position=</span><span class="st">"top"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-16" title="16"><span class="st">        </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">"Installation"</span>)</a>
-<a class="sourceLine" id="cb4-17" title="17">    </a>
-<a class="sourceLine" id="cb4-18" title="18">g2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-19" title="19"><span class="st">        </span><span class="kw">geom_col</span>(h_station<span class="op">$</span>forecast, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"High"</span>),  <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-20" title="20"><span class="st">        </span><span class="kw">geom_col</span>(l_station<span class="op">$</span>forecast, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"Low"</span>), <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-21" title="21"><span class="st">        </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#40798C"</span>, <span class="st">"#CFD7C7"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-22" title="22"><span class="st">        </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-23" title="23"><span class="st">        </span><span class="kw">xlab</span>(<span class="st">"time"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-24" title="24"><span class="st">        </span><span class="kw">ylab</span>(<span class="st">"PM25"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-25" title="25"><span class="st">        </span><span class="kw">ggtitle</span>(<span class="st">"Forecast"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-26" title="26"><span class="st">        </span><span class="kw">theme</span>(<span class="dt">panel.grid.major.x =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb4-27" title="27">              <span class="dt">panel.grid.minor.x =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb4-28" title="28">              <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>),</a>
-<a class="sourceLine" id="cb4-29" title="29">              <span class="dt">legend.position=</span><span class="st">"top"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-30" title="30"><span class="st">        </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">"Installation"</span>) </a>
-<a class="sourceLine" id="cb4-31" title="31"></a>
-<a class="sourceLine" id="cb4-32" title="32"><span class="kw">grid.arrange</span>(g1, g2, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(gridExtra)</a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4">g1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="st">        </span><span class="kw">geom_col</span>(h_station<span class="op">$</span>history, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"High"</span>),  <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="st">        </span><span class="kw">geom_col</span>(l_station<span class="op">$</span>history, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"Low"</span>), <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="st">        </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#40798C"</span>, <span class="st">"#CFD7C7"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="st">        </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="st">        </span><span class="kw">xlab</span>(<span class="st">"time"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="st">        </span><span class="kw">ylab</span>(<span class="st">"PM25"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="st">        </span><span class="kw">ggtitle</span>(<span class="st">"History"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="st">        </span><span class="kw">theme</span>(<span class="dt">panel.grid.major.x =</span> <span class="kw">element_blank</span>(),</a>
+<a class="sourceLine" id="cb5-13" title="13">              <span class="dt">panel.grid.minor.x =</span> <span class="kw">element_blank</span>(),</a>
+<a class="sourceLine" id="cb5-14" title="14">              <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb5-15" title="15">              <span class="dt">legend.position=</span><span class="st">"top"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="st">        </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">"Installation"</span>)</a>
+<a class="sourceLine" id="cb5-17" title="17">    </a>
+<a class="sourceLine" id="cb5-18" title="18">g2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="st">        </span><span class="kw">geom_col</span>(h_station<span class="op">$</span>forecast, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"High"</span>),  <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="st">        </span><span class="kw">geom_col</span>(l_station<span class="op">$</span>forecast, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>time<span class="op">$</span>from, <span class="dt">y =</span> measure<span class="op">$</span>PM25, <span class="dt">fill=</span><span class="st">"Low"</span>), <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-21" title="21"><span class="st">        </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"#40798C"</span>, <span class="st">"#CFD7C7"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="st">        </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-23" title="23"><span class="st">        </span><span class="kw">xlab</span>(<span class="st">"time"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-24" title="24"><span class="st">        </span><span class="kw">ylab</span>(<span class="st">"PM25"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-25" title="25"><span class="st">        </span><span class="kw">ggtitle</span>(<span class="st">"Forecast"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-26" title="26"><span class="st">        </span><span class="kw">theme</span>(<span class="dt">panel.grid.major.x =</span> <span class="kw">element_blank</span>(),</a>
+<a class="sourceLine" id="cb5-27" title="27">              <span class="dt">panel.grid.minor.x =</span> <span class="kw">element_blank</span>(),</a>
+<a class="sourceLine" id="cb5-28" title="28">              <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust=</span><span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb5-29" title="29">              <span class="dt">legend.position=</span><span class="st">"top"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-30" title="30"><span class="st">        </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">"Installation"</span>) </a>
+<a class="sourceLine" id="cb5-31" title="31"></a>
+<a class="sourceLine" id="cb5-32" title="32"><span class="kw">grid.arrange</span>(g1, g2, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
 <p>We can see that most of the time, air quality is worse (and will be) in lower part of Krakow. Ok, but are those sensors readings indicating high pollution? We can check it using <code>get_indexes</code> function, which fill translate values of <a href="https://airly.eu/en/everything-you-should-know-about-air-pollution">AIRLY_CAQI</a> variable</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">indexes &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_indexes.html">get_indexes</a></span>()</a>
-<a class="sourceLine" id="cb5-2" title="2">airly_caqi &lt;-<span class="st"> </span>indexes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(name <span class="op">==</span><span class="st"> "AIRLY_CAQI"</span>)</a>
-<a class="sourceLine" id="cb5-3" title="3">airly_caqi[<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(airly_caqi)] &lt;-<span class="st"> </span><span class="ot">Inf</span> </a>
-<a class="sourceLine" id="cb5-4" title="4"></a>
-<a class="sourceLine" id="cb5-5" title="5">history_high &lt;-<span class="st"> </span>h_station<span class="op">$</span>history</a>
-<a class="sourceLine" id="cb5-6" title="6">history_high<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(history_high<span class="op">$</span>index<span class="op">$</span>AIRLY_CAQI, </a>
-<a class="sourceLine" id="cb5-7" title="7">                        <span class="cf">function</span>(x) airly_caqi[x <span class="op">&gt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>minValue <span class="op">&amp;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="st">                                               </span>x <span class="op">&lt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>maxValue, <span class="st">"description"</span>]))</a>
-<a class="sourceLine" id="cb5-9" title="9"></a>
-<a class="sourceLine" id="cb5-10" title="10">history_low &lt;-<span class="st"> </span>l_station<span class="op">$</span>history</a>
-<a class="sourceLine" id="cb5-11" title="11">history_low<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(history_low<span class="op">$</span>index<span class="op">$</span>AIRLY_CAQI, </a>
-<a class="sourceLine" id="cb5-12" title="12">                        <span class="cf">function</span>(x) airly_caqi[x <span class="op">&gt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>minValue <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb5-13" title="13"><span class="st">                                               </span>x <span class="op">&lt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>maxValue, <span class="st">"description"</span>]))</a>
-<a class="sourceLine" id="cb5-14" title="14"></a>
-<a class="sourceLine" id="cb5-15" title="15"><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-16" title="16"><span class="st">  </span><span class="kw">geom_rect</span>(history_high, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xmin=</span>time<span class="op">$</span>from, <span class="dt">xmax =</span> time<span class="op">$</span>to, </a>
-<a class="sourceLine" id="cb5-17" title="17">                                        <span class="dt">ymin=</span><span class="dv">0</span>, <span class="dt">ymax=</span>.<span class="dv">1</span>, <span class="dt">fill =</span> status)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-18" title="18"><span class="st">  </span><span class="kw">geom_rect</span>(history_low, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xmin=</span>time<span class="op">$</span>from, <span class="dt">xmax =</span> time<span class="op">$</span>to, </a>
-<a class="sourceLine" id="cb5-19" title="19">                                       <span class="dt">ymin=</span><span class="fl">0.2</span>, <span class="dt">ymax=</span>.<span class="dv">3</span>, <span class="dt">fill =</span> status))<span class="op">+</span></a>
-<a class="sourceLine" id="cb5-20" title="20"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Very Low"</span> =<span class="st"> "#6BC926"</span>,</a>
-<a class="sourceLine" id="cb5-21" title="21">                               <span class="st">"Low"</span>    =<span class="st"> "#D1CF1E"</span>,</a>
-<a class="sourceLine" id="cb5-22" title="22">                               <span class="st">"Medium"</span> =<span class="st"> "#EFBB0F"</span>,</a>
-<a class="sourceLine" id="cb5-23" title="23">                               <span class="st">"High"</span>   =<span class="st"> "#EF7120"</span>,</a>
-<a class="sourceLine" id="cb5-24" title="24">                               <span class="st">"Very High"</span> =<span class="st">"#EF2A36"</span>,</a>
-<a class="sourceLine" id="cb5-25" title="25">                               <span class="st">"Extreme"</span> =<span class="st"> "#B00057"</span>,</a>
-<a class="sourceLine" id="cb5-26" title="26">                               <span class="st">"Airmageddon!"</span> =<span class="st"> "#770078"</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-27" title="27"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">"text"</span>, <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(history_high<span class="op">$</span>time<span class="op">$</span>from), <span class="dt">y =</span> <span class="fl">0.25</span>, <span class="dt">label =</span> <span class="st">"High a.s.l"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-28" title="28"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">"text"</span>, <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(history_low<span class="op">$</span>time<span class="op">$</span>from), <span class="dt">y =</span> <span class="fl">0.05</span>, <span class="dt">label =</span> <span class="st">"Low a.s.l"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-29" title="29"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-30" title="30"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>(),</a>
-<a class="sourceLine" id="cb5-31" title="31">        <span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-32" title="32"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">""</span>) <span class="op">+</span><span class="kw">xlab</span>(<span class="st">""</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">indexes &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_indexes.html">get_indexes</a></span>()</a>
+<a class="sourceLine" id="cb6-2" title="2">airly_caqi &lt;-<span class="st"> </span>indexes <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(name <span class="op">==</span><span class="st"> "AIRLY_CAQI"</span>)</a>
+<a class="sourceLine" id="cb6-3" title="3">airly_caqi[<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(airly_caqi)] &lt;-<span class="st"> </span><span class="ot">Inf</span> </a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5">history_high &lt;-<span class="st"> </span>h_station<span class="op">$</span>history</a>
+<a class="sourceLine" id="cb6-6" title="6">history_high<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(history_high<span class="op">$</span>index<span class="op">$</span>AIRLY_CAQI, </a>
+<a class="sourceLine" id="cb6-7" title="7">                        <span class="cf">function</span>(x) airly_caqi[x <span class="op">&gt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>minValue <span class="op">&amp;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="st">                                               </span>x <span class="op">&lt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>maxValue, <span class="st">"description"</span>]))</a>
+<a class="sourceLine" id="cb6-9" title="9"></a>
+<a class="sourceLine" id="cb6-10" title="10">history_low &lt;-<span class="st"> </span>l_station<span class="op">$</span>history</a>
+<a class="sourceLine" id="cb6-11" title="11">history_low<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(history_low<span class="op">$</span>index<span class="op">$</span>AIRLY_CAQI, </a>
+<a class="sourceLine" id="cb6-12" title="12">                        <span class="cf">function</span>(x) airly_caqi[x <span class="op">&gt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>minValue <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="st">                                               </span>x <span class="op">&lt;=</span><span class="st"> </span>airly_caqi<span class="op">$</span>maxValue, <span class="st">"description"</span>]))</a>
+<a class="sourceLine" id="cb6-14" title="14"></a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-16" title="16"><span class="st">  </span><span class="kw">geom_rect</span>(history_high, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xmin=</span>time<span class="op">$</span>from, <span class="dt">xmax =</span> time<span class="op">$</span>to, </a>
+<a class="sourceLine" id="cb6-17" title="17">                                        <span class="dt">ymin=</span><span class="dv">0</span>, <span class="dt">ymax=</span>.<span class="dv">1</span>, <span class="dt">fill =</span> status)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="st">  </span><span class="kw">geom_rect</span>(history_low, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xmin=</span>time<span class="op">$</span>from, <span class="dt">xmax =</span> time<span class="op">$</span>to, </a>
+<a class="sourceLine" id="cb6-19" title="19">                                       <span class="dt">ymin=</span><span class="fl">0.2</span>, <span class="dt">ymax=</span>.<span class="dv">3</span>, <span class="dt">fill =</span> status))<span class="op">+</span></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Very Low"</span> =<span class="st"> "#6BC926"</span>,</a>
+<a class="sourceLine" id="cb6-21" title="21">                               <span class="st">"Low"</span>    =<span class="st"> "#D1CF1E"</span>,</a>
+<a class="sourceLine" id="cb6-22" title="22">                               <span class="st">"Medium"</span> =<span class="st"> "#EFBB0F"</span>,</a>
+<a class="sourceLine" id="cb6-23" title="23">                               <span class="st">"High"</span>   =<span class="st"> "#EF7120"</span>,</a>
+<a class="sourceLine" id="cb6-24" title="24">                               <span class="st">"Very High"</span> =<span class="st">"#EF2A36"</span>,</a>
+<a class="sourceLine" id="cb6-25" title="25">                               <span class="st">"Extreme"</span> =<span class="st"> "#B00057"</span>,</a>
+<a class="sourceLine" id="cb6-26" title="26">                               <span class="st">"Airmageddon!"</span> =<span class="st"> "#770078"</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-27" title="27"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">"text"</span>, <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(history_high<span class="op">$</span>time<span class="op">$</span>from), <span class="dt">y =</span> <span class="fl">0.25</span>, <span class="dt">label =</span> <span class="st">"High a.s.l"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-28" title="28"><span class="st">  </span><span class="kw">annotate</span>(<span class="st">"text"</span>, <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(history_low<span class="op">$</span>time<span class="op">$</span>from), <span class="dt">y =</span> <span class="fl">0.05</span>, <span class="dt">label =</span> <span class="st">"Low a.s.l"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-29" title="29"><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-30" title="30"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid =</span> <span class="kw">element_blank</span>(),</a>
+<a class="sourceLine" id="cb6-31" title="31">        <span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>()) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-32" title="32"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">""</span>) <span class="op">+</span><span class="kw">xlab</span>(<span class="st">""</span>)</a></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
 <p>After we made few requests, we would like to check how many we have left. For that purpose, simply use <code>remaining_requests</code></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">rem_req &lt;-<span class="st"> </span><span class="kw"><a href="reference/remaining_requests.html">remaining_requests</a></span>()</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"Available requests </span><span class="ch">\n</span><span class="st">"</span>, rem_req<span class="op">$</span>remaining, <span class="st">"/"</span>, rem_req<span class="op">$</span>limit)</a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt; Available requests </span></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt;  79 / 100</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">rem_req &lt;-<span class="st"> </span><span class="kw"><a href="reference/remaining_requests.html">remaining_requests</a></span>()</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/cat.html">cat</a></span>(<span class="st">"Available requests </span><span class="ch">\n</span><span class="st">"</span>, rem_req<span class="op">$</span>remaining, <span class="st">"/"</span>, rem_req<span class="op">$</span>limit)</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co">#&gt; Available requests </span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt;  94 / 100</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -188,6 +191,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=aiRly">https://​cloud.r-project.org/​package=aiRly</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/piotrekjanus/aiRly">https://​github.com/​piotrekjanus/​aiRly</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/piotrekjanus/aiRly/issues">https://​github.com/​piotrekjanus/​aiRly/​issues</a>
@@ -215,6 +220,8 @@
 <li><a href="https://ci.appveyor.com/project/piotrekjanus/aiRly"><img src="https://ci.appveyor.com/api/projects/status/9u09jeqyu0e5qkbf?svg=true" alt="AppVeyor status"></a></li>
 <li><a href="https://codecov.io/gh/piotrekjanus/aiRly?branch=master"><img src="https://codecov.io/gh/piotrekjanus/aiRly/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://cran.r-project.org/web/packages/aiRly"><img src="https://www.r-pkg.org/badges/version/aiRly" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/web/packages/aiRly"><img src="https://cranlogs.r-pkg.org/badges/grand-total/aiRly" alt="CRAN status"></a></li>
 </ul>
 </div>
 </div>

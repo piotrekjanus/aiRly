@@ -11,6 +11,11 @@ status](https://ci.appveyor.com/api/projects/status/9u09jeqyu0e5qkbf?svg=true)](
 coverage](https://codecov.io/gh/piotrekjanus/aiRly/branch/master/graph/badge.svg)](https://codecov.io/gh/piotrekjanus/aiRly?branch=master)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/aiRly)](https://cran.r-project.org/web/packages/aiRly)
+[![CRAN
+status](https://cranlogs.r-pkg.org/badges/grand-total/aiRly)](https://cran.r-project.org/web/packages/aiRly)
+
 <!-- badges: end -->
 
 aiRly is an unofficial R wrapper for [Airly](https://airly.eu/),
@@ -19,7 +24,13 @@ the current state of air quality.
 
 ## Installation
 
-You can install current development version of aiRly from
+aiRly is available on CRAN, so you can install it using
+
+``` r
+install.packages("aiRly")
+```
+
+Also, you can install current development version of aiRly from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -30,7 +41,7 @@ devtools::install_github("piotrekjanus/aiRly")
 
 First, you should start with setting your Airly developer account at
 [Airly developer](https://developer.airly.eu/). After you receive key,
-we can check air condition\!
+it’s time to make a use of this package\!
 
 ## Example
 
@@ -44,7 +55,7 @@ Poland. We will look for stations in a range of 20 km. We set
 library(aiRly)
 
 api_key <- Sys.getenv("api_key")
-aiRly::set_apikey(api_key)
+set_apikey(api_key)
 
 stations <- get_nearest_installations(50.11670, 19.91429, max_distance = 20, max_results = -1)
 ```
@@ -146,7 +157,7 @@ ggplot() +
   ylab("") +xlab("")
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 After we made few requests, we would like to check how many we have
 left. For that purpose, simply use `remaining_requests`
@@ -155,5 +166,5 @@ left. For that purpose, simply use `remaining_requests`
 rem_req <- remaining_requests()
 cat("Available requests \n", rem_req$remaining, "/", rem_req$limit)
 #> Available requests 
-#>  79 / 100
+#>  94 / 100
 ```
